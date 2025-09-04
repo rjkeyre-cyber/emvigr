@@ -7,13 +7,15 @@
 <style>
 /* Base reset and typography */
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Inter', sans-serif; line-height:1.6; color:#002366; background:#fff; }
+body { font-family: 'Inter', sans-serif; line-height:1.6; color:#002366; background:#f9f9f9; }
 a { text-decoration:none; color:inherit; }
 
 /* Colours */
 :root {
   --gold: #FFD700;
   --royal-blue: #002366;
+  --tile-bg: #fff;
+  --tile-shadow: rgba(0,0,0,0.1);
 }
 
 /* Header and navigation */
@@ -28,13 +30,18 @@ header { background: var(--royal-blue); color:#fff; padding:1rem; }
 .hamburger { display:none; flex-direction:column; cursor:pointer; }
 .hamburger span { height:3px; width:25px; background:#FFD700; margin:4px 0; border-radius:2px; }
 
-/* Responsive */
+/* Responsive navigation */
 @media (max-width: 768px) {
   .nav-links { display:none; width:100%; flex-direction:column; margin-top:0.5rem; }
   .nav-links.show { display:flex; }
   .hamburger { display:flex; }
 }
-section { padding:2rem; }
+
+/* Sections and tiles */
+section { padding:2rem 1rem; max-width:1200px; margin:0 auto; }
+.tiles { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; }
+.tile { background: var(--tile-bg); padding:1.5rem; border-radius:8px; box-shadow: 0 2px 6px var(--tile-shadow); transition: transform 0.2s; }
+.tile:hover { transform: translateY(-5px); }
 h2 { color: var(--royal-blue); margin-bottom:1rem; }
 p { margin-bottom:1rem; }
 
@@ -58,6 +65,7 @@ footer { background: var(--royal-blue); color:#fff; text-align:center; padding:1
     </div>
     <nav class="nav-links">
       <a href="#about">About</a>
+      <a href="#who">Who We Help</a>
       <a href="#games">Games</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -66,18 +74,74 @@ footer { background: var(--royal-blue); color:#fff; text-align:center; padding:1
 
 <section id="about">
   <h2>About Emvigr</h2>
-  <p>We create immersive VR experiences to safeguard at-risk students in educational settings. Our games combine engagement, support, and learning in safe virtual environments.</p>
+  <div class="tiles">
+    <div class="tile">
+      <h3>Our Mission</h3>
+      <p>We create immersive VR experiences that safeguard at-risk students by combining engagement and educational support in safe virtual environments.</p>
+    </div>
+    <div class="tile">
+      <h3>Our Vision</h3>
+      <p>Empowering schools with technology that nurtures social, emotional, and cognitive skills through gamified VR experiences.</p>
+    </div>
+    <div class="tile">
+      <h3>Our Values</h3>
+      <p>Safety, inclusivity, innovation, and measurable impact guide everything we create for students and educators.</p>
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <h2>Who We Help</h2>
+  <div class="tiles">
+    <div class="tile">
+      <h3>At-Risk Students</h3>
+      <p>Students who face social, emotional, or learning challenges can explore safe VR scenarios designed to build resilience and confidence.</p>
+    </div>
+    <div class="tile">
+      <h3>Educators</h3>
+      <p>Teachers and school staff gain tools to monitor engagement, improve classroom inclusion, and integrate VR safely into learning.</p>
+    </div>
+    <div class="tile">
+      <h3>Schools</h3>
+      <p>Institutions receive measurable impact insights and solutions to improve student wellbeing, attendance, and engagement.</p>
+    </div>
+  </div>
 </section>
 
 <section id="games">
   <h2>Our Games</h2>
-  <p>Interactive VR adventures designed to improve emotional resilience, social skills, and personal wellbeing.</p>
+  <div class="tiles">
+    <div class="tile">
+      <h3>Resilience Quest</h3>
+      <p>Adventure-based VR scenarios that help students manage stress and build resilience in challenging situations.</p>
+    </div>
+    <div class="tile">
+      <h3>Empathy Explorer</h3>
+      <p>Interactive social simulations that foster empathy, perspective-taking, and collaborative problem-solving skills.</p>
+    </div>
+    <div class="tile">
+      <h3>Focus VR</h3>
+      <p>Mindfulness and attention-training games designed to improve concentration and emotional regulation for students.</p>
+    </div>
+  </div>
 </section>
 
 <section id="contact">
   <h2>Contact Us</h2>
-  <p>Email: info@emvigr.com</p>
-  <p>Phone: +44 1234 567890</p>
+  <div class="tiles">
+    <div class="tile">
+      <h3>Email</h3>
+      <p>info@emvigr.com</p>
+    </div>
+    <div class="tile">
+      <h3>Phone</h3>
+      <p>+44 1234 567890</p>
+    </div>
+    <div class="tile">
+      <h3>Address</h3>
+      <p>123 Learning Lane, London, UK</p>
+    </div>
+  </div>
 </section>
 
 <footer>
