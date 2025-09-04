@@ -3,167 +3,298 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Emvigr - Immersive VR for Student Safety</title>
+  <title>Emvigr - Immersive VR for Education</title>
   <style>
-    /* Importing Inter font */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-    /* Reset and base styling */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      color: #003366; /* Royal blue */
-      background-color: #fff;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
+    :root {
+      --blue: #003366;
+      --blue-dark: #002244;
+      --gold: #ffd700;
+      --light: #f5f5f5;
+      --white: #ffffff;
     }
 
-    /* Hero Section */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--blue);
+      background: var(--white);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAVBAR */
+    header {
+      background: var(--blue);
+      color: var(--gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      z-index: 1000;
+    }
+    .logo { font-weight: 700; font-size: 1.2rem; }
+    nav {
+      display: flex;
+      gap: 20px;
+      transition: max-height 0.3s ease;
+    }
+    nav a { color: var(--gold); font-weight: 600; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger span {
+      background: var(--gold);
+      height: 3px; width: 25px;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+      nav {
+        position: absolute;
+        top: 60px; right: 0;
+        flex-direction: column;
+        background: var(--blue);
+        width: 200px;
+        max-height: 0;
+        overflow: hidden;
+      }
+      nav.active { max-height: 500px; }
+      .hamburger { display: flex; }
+    }
+
+    /* HERO */
     .hero {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://www.pexels.com/photo/young-students-using-virtual-reality-headsets-in-classroom-1234567/') center/cover no-repeat;
-      color: #ffd700; /* Gold */
+      background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+        url('https://images.pexels.com/photos/4144094/pexels-photo-4144094.jpeg') center/cover no-repeat;
+      color: var(--white);
       text-align: center;
-      padding: 80px 20px;
+      padding: 160px 20px 120px;
+      margin-top: 60px;
+      animation: fadeIn 1s ease forwards;
     }
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 2.7rem;
       margin-bottom: 0.5em;
+      opacity: 0; transform: translateY(20px);
+      animation: slideUp 1s ease forwards 0.3s;
     }
     .hero p {
       font-size: 1.2rem;
+      margin-bottom: 1.5em;
+      opacity: 0; transform: translateY(20px);
+      animation: slideUp 1s ease forwards 0.6s;
     }
+    .cta-btn {
+      background: var(--gold);
+      color: var(--blue-dark);
+      padding: 14px 28px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      opacity: 0; transform: translateY(20px);
+      animation: slideUp 1s ease forwards 0.9s;
+      transition: background 0.3s;
+    }
+    .cta-btn:hover { background: var(--white); }
 
-    /* Section styling */
-    section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    section h2 {
-      font-size: 2rem;
-      color: #003366;
-      margin-bottom: 20px;
-    }
-    section p {
-      font-size: 1rem;
-      color: #003366;
-    }
+    /* SECTIONS */
+    section { padding: 70px 20px; max-width: 1100px; margin: 0 auto; }
+    h2 { font-size: 2rem; margin-bottom: 20px; text-align: center; }
 
-    /* About Us - static clean block */
-    #about {
-      background-color: #f5f5f5;
+    /* TILES */
+    .tile {
+      background: var(--light);
       border-radius: 12px;
-      padding: 40px 20px;
+      padding: 40px 25px;
+      margin: 20px auto;
       text-align: center;
     }
 
-    /* Tabs */
-    .tabs {
+    /* CAROUSEL */
+    .carousel {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 20px;
+      padding: 10px 0;
     }
+    .carousel::-webkit-scrollbar { display: none; }
+    .carousel-item {
+      flex: 0 0 80%;
+      background: var(--blue);
+      color: var(--gold);
+      border-radius: 12px;
+      padding: 30px;
+      scroll-snap-align: start;
+      transition: transform 0.3s;
+    }
+    .carousel-item:hover { transform: scale(1.02); }
+    @media(min-width: 769px) {
+      .carousel-item { flex: 0 0 30%; }
+    }
+
+    /* TABS */
+    .tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
     .tab-button {
-      background: #003366;
-      color: #ffd700;
+      background: var(--blue);
+      color: var(--gold);
       padding: 10px 20px;
-      margin: 5px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
       transition: background 0.3s;
     }
-    .tab-button:hover, .tab-button.active {
-      background: #002244;
-    }
-
-    /* Tab content */
+    .tab-button:hover { background: var(--blue-dark); }
+    .tab-button.active { background: var(--blue-dark); }
     .tab-content {
       display: none;
-      background: #f5f5f5;
-      padding: 20px;
+      background: var(--light);
+      padding: 25px;
       border-radius: 12px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
     .tab-content.active {
       display: block;
+      opacity: 1;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .hero p {
-        font-size: 1rem;
-      }
-      .tab-button {
-        flex: 1 1 100%;
-      }
+    /* FORM */
+    form {
+      background: var(--light);
+      padding: 35px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
+    form input, form textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border 0.2s;
+    }
+    form input:focus, form textarea:focus {
+      border: 1px solid var(--blue);
+      outline: none;
+    }
+    form button {
+      background: var(--blue);
+      color: var(--gold);
+      font-weight: 700;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    form button:hover { background: var(--blue-dark); }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes slideUp { from {opacity:0; transform: translateY(20px);} to {opacity:1; transform: translateY(0);} }
   </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
+  <!-- NAV -->
+  <header>
+    <div class="logo">Emvigr</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#help">Who We Help</a>
+      <a href="#demo">Book a Demo</a>
+    </nav>
+    <div class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- HERO -->
   <section class="hero">
-    <h1>Emvigr</h1>
-    <p>Immersive VR games to safeguard and empower students</p>
+    <h1>Immersive VR for Safer Schools</h1>
+    <p>Protect students. Empower teachers. Transform safeguarding with Emvigr’s evidence-based VR experiences.</p>
+    <a href="#demo"><button class="cta-btn">Book a Demo</button></a>
   </section>
 
-  <!-- About Us Section (Static) -->
+  <!-- ABOUT -->
   <section id="about">
-    <h2>About Emvigr</h2>
-    <p>Emvigr creates immersive VR experiences designed to safeguard at-risk students. We combine engagement, educational support, and safe virtual environments to help students build resilience, confidence, and social-emotional skills. Our mission is to empower schools and educators with tools that promote wellbeing, inclusion, and measurable impact.</p>
+    <div class="tile">
+      <h2>About Us</h2>
+      <p>Emvigr’s mission is to harness immersive technology to safeguard at-risk students, support educators, and create safer, more inclusive schools. We design VR tools that inspire resilience, confidence, and connection.</p>
+    </div>
   </section>
 
-  <!-- Tabs -->
-  <section>
+  <!-- CASE STUDIES -->
+  <section id="cases">
+    <h2>Case Studies</h2>
+    <div class="carousel">
+      <div class="carousel-item">Case Study 1: A London secondary school reduced behavioural incidents by 40% with Emvigr.</div>
+      <div class="carousel-item">Case Study 2: Students in Manchester improved resilience and engagement in just 6 weeks.</div>
+      <div class="carousel-item">Case Study 3: Teachers reported greater confidence in addressing safeguarding challenges.</div>
+    </div>
+  </section>
+
+  <!-- WHO WE HELP -->
+  <section id="help">
+    <h2>Who We Help</h2>
     <div class="tabs">
-      <button class="tab-button active" data-tab="help">Who We Help</button>
-      <button class="tab-button" data-tab="games">Games</button>
-      <button class="tab-button" data-tab="contact">Contact</button>
+      <button class="tab-button active" data-tab="institutions">Educational Institutions</button>
+      <button class="tab-button" data-tab="students">Students</button>
+      <button class="tab-button" data-tab="teachers">Teachers</button>
     </div>
+    <div id="institutions" class="tab-content active">
+      <p>We partner with schools, colleges, and academies to deliver scalable safeguarding solutions that integrate seamlessly into existing teaching practice.</p>
+    </div>
+    <div id="students" class="tab-content">
+      <p>Students explore VR scenarios that develop confidence, social-emotional skills, and resilience in a safe, controlled environment.</p>
+    </div>
+    <div id="teachers" class="tab-content">
+      <p>Teachers gain tools that improve engagement, provide real-time insight into student needs, and strengthen safeguarding outcomes.</p>
+    </div>
+  </section>
 
-    <div id="help" class="tab-content active">
-      <h2>Who We Help</h2>
-      <p>We work with schools, educators, and support staff to identify students at risk of social, emotional, or academic difficulties, providing VR experiences tailored to build confidence and resilience in a safe, controlled environment.</p>
-    </div>
-
-    <div id="games" class="tab-content">
-      <h2>Our Games</h2>
-      <p>Our VR games simulate real-world scenarios in a safe space, allowing students to practice social-emotional skills, decision-making, and coping strategies. Each experience is evidence-based and designed with education experts.</p>
-    </div>
-
-    <div id="contact" class="tab-content">
-      <h2>Contact</h2>
-      <p>Email: info@emvigr.com<br>Phone: +44 1234 567890<br>Address: 10 VR Lane, London, UK</p>
-    </div>
+  <!-- DEMO FORM -->
+  <section id="demo">
+    <h2>Book a Demo</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="text" placeholder="School / Organisation" required>
+      <textarea rows="4" placeholder="Your Message"></textarea>
+      <button type="submit">Submit</button>
+    </form>
   </section>
 
   <script>
-    // Tabs functionality
+    // Hamburger menu
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    hamburger.addEventListener('click', () => nav.classList.toggle('active'));
+
+    // Tabs
     const buttons = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
-
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
         contents.forEach(c => c.classList.remove('active'));
         document.getElementById(btn.dataset.tab).classList.add('active');
       });
     });
   </script>
-
 </body>
 </html>
